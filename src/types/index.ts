@@ -17,6 +17,7 @@ export type AyushSystem =
 
 export interface Plant {
   id: string;
+  _id?: string;
   name: string;
   botanicalName: string;
   description: string;
@@ -52,6 +53,7 @@ export interface UserPost {
 
 export interface User {
   id: string;
+  _id?: string;
   name: string;
   email: string;
   avatar?: string;

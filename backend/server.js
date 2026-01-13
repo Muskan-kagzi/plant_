@@ -39,8 +39,15 @@ dotenv.config();
 
 const app = express();
 
-// middlewares
-app.use(cors());
+
+// Sabse aasaan solution: Sabhi origins allow kar dein
+app.use(cors({
+  origin: 'http://localhost:8080', // Aapka frontend port yahan hona chahiye
+  credentials: true
+}));
+
+// Agar upar wala kaam na kare toh temporary ye try karein:
+// app.use(cors());
 app.use(express.json());
 //app.use('/uploads', express.static('uploads'));
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
@@ -48,7 +55,7 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use("/api/saved", require("./routes/savedRoutes"));
-
+app.use('/api/liked', require('./routes/likedRoutes'));
 // mongo connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
